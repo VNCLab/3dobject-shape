@@ -14,6 +14,7 @@ for folder,subfolders,files in os.walk(basepath):#goes through 3dObjects and all
             print(filePath,'flip:',flip)
             processThreeD=base.snapshotAndContour(filePath,flip)
             contourdata,camdata= processThreeD.snapshots(0,85)#takes the snapshots at elevations between 0 and 85
-            processThreeD.saveJson(camfile,contourfile,camdata,contourdata)#saves the contour points and camera data in the json files
+            processThreeD.saveObjectJson(camfile,contourfile,camdata,contourdata)#saves the contour points and camera data in the json files
             print(contourdata.shape)
+          
 print('success')

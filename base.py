@@ -347,6 +347,23 @@ class snapshotAndContour(threeDobject):#resposible for taking the snap shots and
                    json.dump(camData,file,indent=2)
                 with open (contourfile,'w') as file:
                    json.dump(contourData,file,indent=2)
+            def saveObjectJson(self, camdata, contourdata, outputFolder='3dTo2d'):
+                os.makedirs(outputFolder, exist_ok=True)
+
+                azimuth = [d['azimuth'] for d in camdata]
+                elevation = [d['elevation'] for d in camdata]
+
+                result = {
+                    'name': self.objname,
+                    'azimuthRange': [round(min(azimuth), 2), round(max(azimuth), 2)],
+                    'elevationRange': [round(min(elevation), 2), round(max(elevation), 2)],
+                    'numOfContours': len(contourdata),
+                    'contours': contourdata.tolist()
+                }
+
+                filePath = os.path.join(outputFolder, f'contours_{self.objname}.json')
+                with open(filePath, 'w') as file:
+                    json.dump(result, file, indent=2)
 
 
 class contourVisualizer:
